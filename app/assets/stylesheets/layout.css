@@ -78,6 +78,7 @@ li img {
 }
 
 #logo {
+  margin-top: -2px;
   margin-bottom: 20px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: -1px;
