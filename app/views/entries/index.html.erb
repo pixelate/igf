@@ -1,0 +1,5 @@
+<ul>
+<% @entries.each do |entry| %>
+  <li><%= link_to entry.name, "http://www.igf.com/php-bin/entry2012.php?id=#{entry.entry_id}" %> by <%= entry.developer.name %></li>
+<% end %>
+</ul>
