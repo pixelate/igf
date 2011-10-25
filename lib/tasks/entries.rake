@@ -4,6 +4,8 @@ require 'open-uri'
 namespace :igf do
   namespace :entries do      
     task :collect, [] => :environment do |t|
+
+      Entry.destroy_all
       
       number_of_entries = 568
       entries_per_page = 30
@@ -18,7 +20,7 @@ namespace :igf do
 
           entry = Entry.new
 
-          if table.get_attribute("bgcolor") == "#eeeeee" && table.get_attribute("width") == "100%"
+          if (table.get_attribute("bgcolor") == "#eeeeee" || table.get_attribute("bgcolor") == "#fafafa") && table.get_attribute("width") == "100%"
             table.css('tr td a img').each do |image|
               entry.image_url = image.get_attribute("src")
               entry.entry_id = image.parent.get_attribute("href").split("=").last

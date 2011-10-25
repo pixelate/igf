@@ -2,11 +2,11 @@ class EntriesController < ApplicationController
   layout 'application' 
 
   def index
-    @entries = Entry.all
+    @entries = Entry.order("name ASC")
   end
 
   def gallery
-    @entries = Entry.all
+    @entries = Entry.order("name ASC")
   end
 
   def show
