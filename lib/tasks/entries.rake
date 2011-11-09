@@ -5,20 +5,31 @@ namespace :igf do
   namespace :entries do      
     task :collect, [] => :environment do |t|
 
-      Entry.destroy_all
+      # Entries: 568 + 295 = 863
+
+      Entry.destroy_all      
+      collect_entries("http://www.igf.com/php-bin/entries2012.php", 568, false)
+      collect_entries("http://www.igf.com/php-bin/entries2012_student.php", 295, true)
       
-      number_of_entries = 568
-      entries_per_page = 30
+    end
+  end
+end
+
+private 
+
+def collect_entries(url, number_of_entries, is_student)
+     entries_per_page = 30
 
       number_of_requests = number_of_entries / entries_per_page
       (0..number_of_requests).each do |request|
         start = request * entries_per_page        
-        puts "http://www.igf.com/php-bin/entries2012.php?start=#{start}"
+        puts "#{url}?start=#{start}"
 
-        doc = Nokogiri::HTML(open("http://www.igf.com/php-bin/entries2012.php?start=#{start}"))        
+        doc = Nokogiri::HTML(open("#{url}?start=#{start}"))        
         doc.css('table').each do |table|
 
           entry = Entry.new
+          entry.is_student = is_student
 
           if (table.get_attribute("bgcolor") == "#eeeeee" || table.get_attribute("bgcolor") == "#fafafa") && table.get_attribute("width") == "100%"
             table.css('tr td a img').each do |image|
@@ -32,11 +43,11 @@ namespace :igf do
                 developer = title.parent.next.content
                 entry.developer_name = developer.gsub("(", "").gsub(")", "").strip
               end
+              
+              entry.description = title.parent.parent.children.last.content
             end
           end        
           entry.save
         end
       end
-    end
-  end
 end
