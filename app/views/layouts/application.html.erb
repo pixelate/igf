@@ -45,8 +45,20 @@
     		<nav>
           <h3 id="logo">IGF 2012</h3>
 					<ul>
-						<li><%= link_to "List view", entries_path %></li>
-						<li><%= link_to "Gallery view", gallery_entries_path %></li>
+          	<li>Main competition<li>
+          	<li>
+          	  <ul>
+          	    <li><%= link_to "List view", main_entries_path %></li>
+          	    <li><%= link_to "Gallery view", gallery_main_entries_path %></li>
+          	  </ul>
+          	</li>
+          	<li>Student competition<li>
+          	<li>
+          	  <ul>
+          	    <li><%= link_to "List view", student_entries_path %></li>
+          	    <li><%= link_to "Gallery view", gallery_student_entries_path %></li>
+          	  </ul>
+          	</li>
 					</ul>
 					<small>
 					  <p>This website tries to present the IGF 2012 entries in a more accesible way than the official website.

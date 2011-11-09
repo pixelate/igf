@@ -1,14 +1,13 @@
 Igf2012::Application.routes.draw do
-  root :to => 'entries#index'
+  root :to => 'entries#main'
 
-  resources :entries do
-    collection do
-      get 'gallery'
-    end
-  end
+  match 'main' => 'entries#main', :as => :main_entries
+  match 'main/gallery' => 'entries#gallery_main', :as => :gallery_main_entries
+  match 'main/concepts' => 'entries#concepts_main', :as => :concepts_main_entries
 
-
-
+  match 'students' => 'entries#students', :as => :student_entries
+  match 'student/gallery' => 'entries#gallery_students', :as => :gallery_student_entries
+  match 'student/concepts' => 'entries#concepts_students', :as => :concepts_student_entries
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
