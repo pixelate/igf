@@ -1,6 +1,7 @@
 class Entry < ActiveRecord::Base
 
   belongs_to :developer
+  belongs_to :event
   validates_presence_of :name
   validates_presence_of :developer_id
   validates_presence_of :image_url

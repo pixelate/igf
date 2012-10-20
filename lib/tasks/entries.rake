@@ -12,6 +12,27 @@ namespace :igf do
       collect_entries("http://www.igf.com/php-bin/entries2012_student.php", 295, true)
       
     end
+    
+    task :migrate_2012, [] => :environment do |t|
+    
+      igf2012main = Event.new(:title => "Main Competition", :year => 2012)
+      igf2012main.save
+    
+      igf2012student = Event.new(:title => "Student Competition", :year => 2012)
+      igf2012student.save
+    
+      Entry.all.each do |entry| 
+        if entry.event_id.nil?
+          if entry.is_student?
+            entry.event = igf2012student
+          else
+            entry.event = igf2012main
+          end
+        end
+        
+        entry.save
+      end    
+    end
   end
 end
 
