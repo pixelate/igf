@@ -18,7 +18,7 @@ class EntriesController < ApplicationController
   
   def find_entries
     if params[:id].nil?
-      @event = Event.first
+      @event = Event.last
     else
       @event = Event.find(params[:id])
     end

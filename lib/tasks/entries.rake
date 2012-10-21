@@ -3,14 +3,21 @@ require 'open-uri'
 
 namespace :igf do
   namespace :entries do      
-    task :collect, [] => :environment do |t|
+    task :collect_2012, [] => :environment do |t|
 
       # Entries: 568 + 295 = 863
 
-      Entry.destroy_all      
+      # Entry.destroy_all      
       collect_entries("http://www.igf.com/php-bin/entries2012.php", 568, false)
       collect_entries("http://www.igf.com/php-bin/entries2012_student.php", 295, true)
       
+    end
+
+    task :collect_2013, [] => :environment do |t|
+      igf2013main = Event.new(:title => "Main Competition", :year => 2013)
+      igf2013main.save
+
+      parse_entries("http://submit.igf.com/json", igf2013main)
     end
     
     task :migrate_2012, [] => :environment do |t|
@@ -38,7 +45,22 @@ end
 
 private 
 
-def collect_entries(url, number_of_entries, is_student)
+def parse_entries(url, event)
+  result = JSON.parse(open(url).read)
+  result["entries"].each do |entry_data|
+    entry = Entry.new
+    entry.name = entry_data["name"]
+    entry.entry_id = entry_data["id"]
+    entry.developer_name = entry_data["creator"]
+    entry.description = entry_data["description"]
+    entry.image_url = entry_data["image"]["url"] if entry_data["image"]
+    entry.event = event
+    entry.save
+    puts entry.name
+  end
+end
+
+def scrape_entries(url, number_of_entries, is_student)
      entries_per_page = 30
 
       number_of_requests = number_of_entries / entries_per_page
