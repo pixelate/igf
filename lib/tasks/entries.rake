@@ -15,10 +15,10 @@ namespace :igf do
     
     task :migrate_2012, [] => :environment do |t|
     
-      igf2012main = Event.new(:title => "Main Competition", :year => 2012)
+      igf2012main = Event.new(:title => "Main Competition", :year => 2012, :slug => "main-2012")
       igf2012main.save
     
-      igf2012student = Event.new(:title => "Student Competition", :year => 2012)
+      igf2012student = Event.new(:title => "Student Competition", :year => 2012, :slug => "student-2012")
       igf2012student.save
     
       Entry.all.each do |entry| 
