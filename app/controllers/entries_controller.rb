@@ -17,7 +17,12 @@ class EntriesController < ApplicationController
   private
   
   def find_entries
-    @event = Event.find(params[:id])
+    if params[:id].nil?
+      @event = Event.first
+    else
+      @event = Event.find(params[:id])
+    end
+    
     @entries = Entry.where(:event_id => @event.id).order("name ASC")
     @headline = @event.title + " " + @event.year.to_s        
   end

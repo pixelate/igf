@@ -1,5 +1,5 @@
 Igf2012::Application.routes.draw do
-  root :to => 'entries#main'
+  root :to => 'entries#index'
 
   match ':id' => 'entries#index', :as => :entries
   match ':id/gallery' => 'entries#gallery', :as => :gallery_entries
