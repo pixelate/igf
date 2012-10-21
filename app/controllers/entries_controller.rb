@@ -1,40 +1,24 @@
 class EntriesController < ApplicationController
   layout 'application' 
-
-  def main
-    @entries = Entry.where(:is_student => false).order("name ASC")
-    @headline = "Main competition"
-    render "index"
-  end
   
-  def students
-    @entries = Entry.where(:is_student => true).order("name ASC")
-    @headline = "Student competition"
-    render "index"
+  before_filter :find_entries
+
+  def index
   end
 
-  def gallery_main
-    @entries = Entry.where(:is_student => false).order("name ASC")
-    @headline = "Main competition"
+  def gallery
     render "gallery"
   end
 
-  def gallery_students
-    @entries = Entry.where(:is_student => true).order("name ASC")
-    @headline = "Student competition"
-    render "gallery"
-  end
-
-  def concepts_main
-    @headline = "Main competition"
-    @entries = Entry.where(:is_student => false).order("name ASC")
+  def concepts
     render "concepts"
   end
 
-  def concepts_students
-    @entries = Entry.where(:is_student => true).order("name ASC")
-    @headline = "Student competition"
-    render "concepts"
+  private
+  
+  def find_entries
+    @event = Event.find(params[:id])
+    @entries = Entry.where(:event_id => @event.id).order("name ASC")
+    @headline = @event.title + " " + @event.year.to_s        
   end
-
 end

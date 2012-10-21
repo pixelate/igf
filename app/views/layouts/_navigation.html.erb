@@ -1,0 +1,19 @@
+<nav>
+  <h3 id="logo">IGF 2012</h3>
+	<ul>
+    <% @events.each do |event|%>
+      <li><%= event.title%> <%= event.year.to_s %></li>
+      <ul>
+        <li><%= link_to("List view", entries_path(:id => event)) %></li>
+	      <li><%= link_to("Gallery view", gallery_entries_path(:id => event)) %></li>
+      </ul>
+    <% end %>    
+	</ul>
+	<small>
+	  <p>This website tries to present the IGF entries in a more accessible way than the official website.
+	  It has been built with <a href="http://www.rubyonrails.org">Rails</a> and <a href="http://www.getskeleton.com/">Skeleton</a>.
+	  All data scraped from the public <a href="http://www.igf.com">IGF website</a>.</p>
+	  <p>Want to track press coverage for your IGF entry? Check out <a href="http://www.promoterapp.com">Promoter</a>.</p>
+	</small>
+</nav>
+&nbsp;

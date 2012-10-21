@@ -34,36 +34,11 @@
 	<div class="container">
 
     <div class="rows">
-      <div class="three columns sidebar">
-    		<nav>
-          <h3 id="logo">IGF 2012</h3>
-					<ul>
-          	<li>Main competition<li>
-          	<li>
-          	  <ul>
-          	    <li><%= link_to "List view", main_entries_path %></li>
-          	    <li><%= link_to "Gallery view", gallery_main_entries_path %></li>
-          	  </ul>
-          	</li>
-          	<li>Student competition<li>
-          	<li>
-          	  <ul>
-          	    <li><%= link_to "List view", student_entries_path %></li>
-          	    <li><%= link_to "Gallery view", gallery_student_entries_path %></li>
-          	  </ul>
-          	</li>
-					</ul>
-					<small>
-					  <p>This website tries to present the IGF 2012 entries in a more accessible way than the official website.
-					  It has been built with <a href="http://www.rubyonrails.org">Rails</a> and <a href="http://www.getskeleton.com/">Skeleton</a>.
-					  All data scraped from the public <a href="http://www.igf.com">IGF website</a>.</p>
-					  <p><a href="http://www.madebypixelate.com">Made by Pixelate</a></p>
-					</small>
-				</nav>
-				&nbsp;
+      <div class="four columns sidebar">
+        <%= render "layouts/navigation" %>
 			</div>				
     </div>
-		<div class="twelve columns offset-by-one">
+		<div class="eleven columns offset-by-one">
 		  <%= yield %>
     </div>
 	</div><!-- container -->

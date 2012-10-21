@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
+  before_filter :find_events
   
-  #before_filter :find_event
-  
-  def find_event
-    @event = Event.find(params[:id])
+  def find_events
+    @events = Event.order("year DESC")
   end
+
 end
