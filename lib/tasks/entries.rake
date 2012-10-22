@@ -14,9 +14,12 @@ namespace :igf do
     end
 
     task :collect_2013, [] => :environment do |t|
+      old_event_data = Event.where({:title => "Main Competition", :year => "2013"})
+      Event.destroy(old_event_data) unless old_event_data.blank?
+
       igf2013main = Event.new(:title => "Main Competition", :year => 2013)
       igf2013main.save
-
+      
       parse_entries("http://submit.igf.com/json", igf2013main)
     end
     
@@ -53,7 +56,10 @@ def parse_entries(url, event)
     entry.entry_id = entry_data["id"]
     entry.developer_name = entry_data["creator"]
     entry.description = entry_data["description"]
-    entry.image_url = entry_data["image"]["url"] if entry_data["image"]
+    if entry_data["image"]
+      entry.image_url = entry_data["image"]["thumb_1000"] || entry_data["image"]["url"]
+    end
+    
     entry.event = event
     entry.save
     puts entry.name
