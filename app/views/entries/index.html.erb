@@ -1,6 +1,6 @@
 <h4><%= @headline %></h4>
 <ul>
 <% @entries.each do |entry| %>
-  <li><%= link_to entry.name, "http://www.igf.com/php-bin/#{entry.event.year.to_s}.php?id=#{entry.entry_id}" %> by <%= entry.developer.name %></li>
+<li><%= link_to entry.name, "http://www.igf.com/php-bin/entry#{entry.event.year.to_s}.php?id=#{entry.entry_id}" %> by <%= entry.developer.name %></li>
 <% end %>
 </ul>
