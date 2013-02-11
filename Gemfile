@@ -1,12 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.10'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
+gem 'rails', '3.1.11'
 gem 'pg'
-gem 'json'
+gem 'json', '1.7.7'
 
 gem "friendly_id", "~> 4.0.8"
 
