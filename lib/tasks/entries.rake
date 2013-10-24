@@ -13,6 +13,16 @@ namespace :igf do
       
     end
 
+    task :collect_2014, [] => :environment do |t|
+      old_event_data = Event.where({:title => "Main Competition", :year => "2014"})
+      Event.destroy(old_event_data) unless old_event_data.blank?
+
+      igf2014main = Event.new(:title => "Main Competition", :year => 2014)
+      igf2014main.save
+      
+      parse_entries("http://submit.igf.com/json", igf2014main)
+    end
+
     task :collect_2013, [] => :environment do |t|
       old_event_data = Event.where({:title => "Main Competition", :year => "2013"})
       Event.destroy(old_event_data) unless old_event_data.blank?
