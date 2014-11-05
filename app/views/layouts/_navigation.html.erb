@@ -1,5 +1,6 @@
 <nav>
   <h3 id="logo">IGF Entries</h3>
+	  <p style="background: blue; color: white; font-weight: bold; border-radius: 4px; padding: 10px; font-size: 16px;">Track press for your IGF entry <a href="http://www.promoterapp.com" style="color: white;">with Promoter</a>.</p>
 	<ul>
     <% @events.each do |event|%>
       <li><%= event.title%> <%= event.year.to_s %></li>
@@ -12,9 +13,7 @@
 	<small>
 	  <p>This website tries to present the IGF entries in a more accessible way than the official website.
 	  It has been built with <a href="http://www.rubyonrails.org">Rails</a> and <a href="http://www.getskeleton.com/">Skeleton</a>.
-	  Data for 2013 courtesy of Matthew Wegner, data for 2012 scraped from the public <a href="http://www.igf.com">IGF website</a>.</p>
-	  <p>Want to track press coverage for your IGF entry? Check out <a href="http://www.promoterapp.com">Promoter</a>.</p>
-	  <p><a href="http://www.madebypixelate.com">Made by Pixelate</a></p>
+	  Data for 2013&ndash;2015 courtesy of Matthew Wegner, data for 2012 scraped from the public <a href="http://www.igf.com">IGF website</a>.</p>
 	</small>
 </nav>
 &nbsp;
