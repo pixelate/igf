@@ -13,6 +13,16 @@ namespace :igf do
     #   
     # end
 
+    task :collect_2015, [] => :environment do |t|
+      old_event_data = Event.where({:title => "Main Competition", :year => "2015"})
+      Event.destroy(old_event_data) unless old_event_data.blank?
+
+      igf2015main = Event.new(:title => "Main Competition", :year => 2015)
+      igf2015main.save
+      
+      parse_entries("http://submit.igf.com/json", igf2015main)
+    end
+
     task :collect_2014, [] => :environment do |t|
       old_event_data = Event.where({:title => "Main Competition", :year => "2014"})
       Event.destroy(old_event_data) unless old_event_data.blank?
@@ -56,25 +66,25 @@ namespace :igf do
   end
 end
 
-# private 
-# 
-# def parse_entries(url, event)
-#   result = JSON.parse(open(url).read)
-#   result["entries"].each do |entry_data|
-#     entry = Entry.new
-#     entry.name = entry_data["name"]
-#     entry.entry_id = entry_data["id"]
-#     entry.developer_name = entry_data["creator"]
-#     entry.description = entry_data["description"]
-#     if entry_data["image"]
-#       entry.image_url = entry_data["image"]["thumb_1000"] || entry_data["image"]["url"]
-#     end
-#     
-#     entry.event = event
-#     entry.save
-#     puts entry.name
-#   end
-# end
+private
+
+def parse_entries(url, event)
+  result = JSON.parse(open(url).read)
+  result["entries"].each do |entry_data|
+    entry = Entry.new
+    entry.name = entry_data["name"]
+    entry.entry_id = entry_data["id"]
+    entry.developer_name = entry_data["creator"]
+    entry.description = entry_data["description"]
+    if entry_data["image"]
+      entry.image_url = entry_data["image"]["thumb_1000"] || entry_data["image"]["url"]
+    end
+
+    entry.event = event
+    entry.save
+    puts entry.name
+  end
+end
 # 
 # def scrape_entries(url, number_of_entries, is_student)
 #      entries_per_page = 30
