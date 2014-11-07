@@ -37,6 +37,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
+    dalli (2.7.2)
     erubis (2.7.0)
     execjs (2.2.1)
     friendly_id (4.0.10.1)
@@ -107,6 +108,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (= 3.2.2)
+  dalli
   friendly_id (~> 4.0.8)
   jquery-rails
   json (= 1.7.7)

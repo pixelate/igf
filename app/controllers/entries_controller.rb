@@ -3,6 +3,9 @@ class EntriesController < ApplicationController
   
   before_filter :find_entries
 
+  caches_action :index
+  caches_action :gallery
+
   def index
   end
 
